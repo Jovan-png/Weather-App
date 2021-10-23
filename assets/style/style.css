@@ -1,0 +1,23 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.weatherHeader {
+  color: white;
+  background-image: linear-gradient(
+    to right,
+    rgb(21, 21, 196),
+    rgb(38, 0, 128)
+  );
+  text-align: center;
+  padding-bottom: 10px;
+}
+.searchCity {
+  float: left;
+}
+.display {
+  border: 1px solid black;
+  width: 50%;
+}

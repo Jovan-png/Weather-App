@@ -70,3 +70,18 @@ hr {
 .history {
   justify-content: center;
 }
+.card {
+  width: 12vw;
+  max-width: 250px;
+  min-width: 200px;
+  height: 300px;
+  margin: 5px 5px 5px 5px;
+  float: left;
+  background-color: rgb(72, 72, 206);
+  color: aliceblue;
+  text-align: center;
+}
+img {
+  height: 76px;
+  width: 50px;
+}

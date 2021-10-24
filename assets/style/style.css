@@ -14,10 +14,58 @@
   text-align: center;
   padding-bottom: 10px;
 }
-.searchCity {
+.formContainer {
   float: left;
 }
+.searchC {
+  height: 35px;
+  width: 19vw;
+  min-width: 15vw;
+  margin-top: 5px;
+  margin-left: 5px;
+  margin-bottom: 5px;
+  float: left;
+  border-radius: 5px;
+  padding-right: 50px;
+}
+.formContainer h2 {
+  width: 19vw;
+}
+.btnContainer {
+  float: left;
+  top: 0;
+  left: 0;
+}
+hr {
+  border: 2px solid gray;
+}
+.btnContainer .button {
+  height: 35px;
+  float: left;
+  top: 0;
+  left: 0;
+  width: 19vw;
+  margin-left: 5px;
+  margin-bottom: 15px;
+  border: 0;
+  background-color: rgb(29, 132, 216);
+  border-radius: 5px;
+}
+.btnContainer button hr {
+  color: tomato;
+}
 .display {
-  border: 1px solid black;
-  width: 50%;
+  margin-top: 5px;
+  float: right;
+  border: 2px solid black;
+  width: 78vw;
+  height: 250px;
+}
+.weatherCard {
+  margin-top: 50px;
+  margin-bottom: 500px;
+  height: 500px;
+}
+.history {
+  justify-content: center;
 }

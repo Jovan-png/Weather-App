@@ -60,6 +60,7 @@ hr {
   border: 2px solid black;
   width: 78vw;
   height: 250px;
+  margin-right: 2px;
 }
 .weatherCard {
   margin-top: 50px;

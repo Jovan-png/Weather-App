@@ -85,3 +85,10 @@ img {
   height: 76px;
   width: 50px;
 }
+.searchHistory {
+  margin-bottom: 5px;
+  text-align: center;
+  background-color: gray;
+  height: 40px;
+  border-radius: 5px;
+}

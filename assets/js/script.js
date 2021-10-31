@@ -1,277 +1,293 @@
 // Display variables
-let input = document.querySelector('.searchC')
-let city = document.querySelector('.city')
-let temp = document.querySelector('.temp')
-let wind = document.querySelector('.wind')
-let humidity = document.querySelector('.humidity')
-let uvIndex = document.querySelector('.uvIndex')
-let button = document.querySelector('.button')
+var input = document.querySelector('.searchC');
+var city = document.querySelector('.city');
+var temp = document.querySelector('.temp');
+var wind = document.querySelector('.wind');
+var humidity = document.querySelector('.humidity');
+var uvIndex = document.querySelector('.uvIndex');
+var button = document.querySelector('.button');
+var hButton = document.querySelector('.hello');
 // Card Variables
-let Card1 = document.querySelector('.first')
-let Card2 = document.querySelector('.second')
-let Card3 = document.querySelector('.third')
-let Card4 = document.querySelector('.fourth')
-let Card5 = document.querySelector('.fifth')
-let img = ""
-let historyDiv = document.querySelector('.history')
-let cityArray = {};
-let lsDiv = document.createElement('div')
+var weatherCard = document.querySelector('.weatherCard');
+var historyDiv = document.querySelector('.history');
+var cityArray = [];
+var cities = JSON.parse(localStorage.getItem('cityHistory')) || [];
+// 
+var card1 = document.querySelector('.one');
+var card2 = document.querySelector('.two');
+var card3 = document.querySelector('.three');
+var card4 = document.querySelector('.four');
+var card5 = document.querySelector('.five');
+
 // Moment variables
-let currentTime = moment().format('MM-DD-YYYY')
-
-
-// Displays Weather for Whatever City Is Input
-button.addEventListener('click',() => {
-fetch('https://api.openweathermap.org/data/2.5/weather?q='+input.value+'&appid=8d8d90e6027a9ade8d4ce0c5e4e44d40&units=imperial')
-.then(response => response.json())
-.then(data => {
-    console.log(data)
-    let cityValue = data['name'] + ' '+ '('+ currentTime +')';
-    let tempValue = 'Temp: '+data['main']['temp'] +"°"
-    let windValue = 'Wind: ' + data['wind']['speed'] + ' MPH'
-    let humidityValue = 'Humidity: ' +data['main']['humidity'] +'%'
-    let uvIndexValue = 'UV Index: ';
-    humidity.innerHTML = humidityValue;
-    wind.innerHTML = windValue;
-    temp.innerHTML = tempValue;
-    city.innerHTML = cityValue;
-    
-})
-.catch(err => alert('wrong city name'))
-})
-
-
-// Displays 5 Day Forcast
-button.addEventListener('click', () =>{
-    fetch('https://api.openweathermap.org/data/2.5/forecast?q='+ input.value+ '&appid=8d8d90e6027a9ade8d4ce0c5e4e44d40&units=imperial')
-    .then(response => response.json())
-    .then(data => {
-        
-         for(i = -1; i < data['list'].length; i++ )
-        if(data['list']['0']['clouds']['all'] > 100){
-            img =`<img src="/assets/img/2849803_cloudy_cloud_weather_multimedia_icon.png"></img>`
-            console.log("success")
-        }else if(data['list']['0']['clouds']['all']< 91){
-            img = `<img src="/assets/img/4102326_cloud_sun_sunny_weather_icon.png"></img>`
-        }else if(data['list']['0']['clouds']['all']< 50 ){
-    img = `<img src="/assets/img/2995005_sun_sunny_yellow_weather_beach_icon.png"></img>`
-        }
-        Card1.innerHTML = ` <h5> ${moment().add(1, 'days').format('MM-DD-YYYY')}<h5>
-        <p>
-        Temp: ${data['list']['0']['main']['temp']}°<br>
-        ${img}
-       <br> Wind: <br>
-        <br>Humidity: <br>
-        <p>
-        `
-
-        Card2.innerHTML = ` <h5> ${moment().add(2, 'days').format('MM-DD-YYYY')}<h5>
-        <p>
-        Temp: ${data['list']['1']['main']['temp']}°<br>
-        ${img}
-       <br> Wind: <br>
-        <br>Humidity: <br>
-        <p>
-        `
-
-        Card3.innerHTML = ` <h5> ${moment().add(3, 'days').format('MM-DD-YYYY')}<h5>
-        <p>
-        Temp: ${data['list']['2']['main']['temp']}°<br>
-        ${img}
-       <br> Wind: <br>
-        <br>Humidity: <br>
-        <p>
-        `
-
-        Card4.innerHTML = ` <h5> ${moment().add(4, 'days').format('MM-DD-YYYY')}<h5>
-        <p>
-        Temp: ${data['list']['3']['main']['temp']}°<br>
-        ${img}
-       <br> Wind: <br>
-        <br>Humidity: <br>
-        <p>
-        `
-
-        Card5.innerHTML = ` <h5> ${moment().add(5, 'days').format('MM-DD-YYYY')}<h5>
-        <p>
-        Temp: ${data['list']['4']['main']['temp']}°<br>
-        ${img}
-       <br> Wind: <br>
-        <br>Humidity: <br>
-        <p>
-        `
-        console.log(data)
-})
-})
-button.addEventListener('click', () =>{
-    fetch('https://api.openweathermap.org/data/2.5/forecast?q='+ input.value+ '&appid=8d8d90e6027a9ade8d4ce0c5e4e44d40&units=imperial')
-    .then(response => response.json())
-    .then(data => {
-       
-    })
-})
-
-// Loads
-const fiveDayOnload = () =>{
-    fetch('https://api.openweathermap.org/data/2.5/forecast?q=miami&appid=8d8d90e6027a9ade8d4ce0c5e4e44d40&units=imperial')
-    .then(response => response.json())
-    .then(data => {
-        console.log(data)
-        
-      // Start OF For Loop
-        for(i = 0; i < 5; i++ ){
-        if(data['list'][i]['clouds']['all'] >= 100){
-            img =`<img src="/assets/img/2849803_cloudy_cloud_weather_multimedia_icon.png"></img>`
-            console.log("cloudy")
-        }else if(data['list'][i]['clouds']['all']< 91){
-            img = `<img src="/assets/img/4102326_cloud_sun_sunny_weather_icon.png"></img>`
-            console.log("Partly Cloudy")
-        }else if(data['list'][i]['clouds']['all']< 50 ){
-    img = `<img src="/assets/img/2995005_sun_sunny_yellow_weather_beach_icon.png"></img>`
-        }
-        Card1.innerHTML = ` <h5> ${moment().add(1, 'days').format('MM-DD-YYYY')}<h5>
-        <p>
-        Temp: ${data['list'][i]['main']['temp']}°<br>
-        ${img}
-       <br> Wind: <br>
-        <br>Humidity: <br>
-        <p>
-        `
-        
-        i++
-
-
-        // Card 1 Of Weather
-        if(data['list'][i]['clouds']['all'] >= 100){
-            img =`<img src="/assets/img/2849803_cloudy_cloud_weather_multimedia_icon.png"></img>`
-            console.log("success")
-        }else if(data['list'][i]['clouds']['all'] < 100){
-            img = `<img src="/assets/img/4102326_cloud_sun_sunny_weather_icon.png"></img>`
-        }else if(data['list'][i]['clouds']['all'] < 60 ){
-    img = `<img src="/assets/img/2995005_sun_sunny_yellow_weather_beach_icon.png"></img>`
-        }
-        Card2.innerHTML = ` <h5> ${moment().add(2, 'days').format('MM-DD-YYYY')}<h5>
-        <p>
-        Temp: ${data['list'][i]['main']['temp']}°<br>
-        ${img}
-       <br> Wind: <br>
-        <br>Humidity: <br>
-        <p>
-        `
-        i++
-
-
-        // Card 3 Of Weather
-        if(data['list'][i]['clouds']['all'] >= 100){
-            img =`<img src="/assets/img/2849803_cloudy_cloud_weather_multimedia_icon.png"></img>`
-            console.log("success")
-        }else if(data['list'][i]['clouds']['all'] < 100){
-            img = `<img src="/assets/img/4102326_cloud_sun_sunny_weather_icon.png"></img>`
-        }else if(data['list'][i]['clouds']['all'] < 60 ){
-    img = `<img src="/assets/img/2995005_sun_sunny_yellow_weather_beach_icon.png"></img>`
-        }
-        Card3.innerHTML = ` <h5> ${moment().add(3, 'days').format('MM-DD-YYYY')}<h5>
-        <p>
-        Temp: ${data['list'][i]['main']['temp']}°<br>
-        ${img}
-       <br> Wind: <br>
-        <br>Humidity: <br>
-        <p>
-        `
-        i++
-
-
-        //  Card 4 Of Weather
-        if(data['list'][i]['clouds']['all'] >= 100){
-            img =`<img src="/assets/img/2849803_cloudy_cloud_weather_multimedia_icon.png"></img>`
-            console.log("success")
-        }else if(data['list'][i]['clouds']['all']< 100){
-            img = `<img src="/assets/img/4102326_cloud_sun_sunny_weather_icon.png"></img>`
-        }else if(data['list'][i]['clouds']['all']< 60 ){
-    img = `<img src="/assets/img/2995005_sun_sunny_yellow_weather_beach_icon.png"></img>`
-        }
-        Card4.innerHTML = ` <h5> ${moment().add(4, 'days').format('MM-DD-YYYY')}<h5>
-        <p>
-        Temp: ${data['list'][i]['main']['temp']}°<br>
-        ${img}
-       <br> Wind: <br>
-        <br>Humidity: <br>
-        <p>
-        `
-        i++
-
-
-        //Card 5 Of Weather
-        if(data['list'][i]['clouds']['all'] >= 100){
-            img =`<img src="/assets/img/2849803_cloudy_cloud_weather_multimedia_icon.png"></img>`
-            console.log("success")
-        }else if(data['list'][i]['clouds']['all']< 100){
-            img = `<img src="/assets/img/4102326_cloud_sun_sunny_weather_icon.png"></img>`
-        }else if(data['list'][i]['clouds']['all']< 60 ){
-    img = `<img src="/assets/img/2995005_sun_sunny_yellow_weather_beach_icon.png"></img>`
-        }
-        Card5.innerHTML = ` <h5> ${moment().add(5, 'days').format('MM-DD-YYYY')}<h5>
-        <p>
-        Temp: ${data['list'][i]['main']['temp']}°<br>
-        ${img}
-       <br> Wind: <br>
-        <br>Humidity: <br>
-        <p>
-        `
-    }
-    })
-}
+var currentTime = moment().format('MM-DD-YYYY')
 
 
 // Function Loads Milwaukee as default 
 const apiOnload = () => {
-fetch('https://api.openweathermap.org/data/2.5/weather?q=lasvegas&appid=8d8d90e6027a9ade8d4ce0c5e4e44d40&units=imperial')
+fetch('https://api.openweathermap.org/data/2.5/weather?q=milwaukee&appid=8d8d90e6027a9ade8d4ce0c5e4e44d40&units=imperial')
 .then(response => response.json())
-.then(data => {
-    console.log(data)
-    if(data['clouds']['all'] > 100){
-        img =`<img src="/assets/img/2849803_cloudy_cloud_weather_multimedia_icon.png"></img>`
-        console.log("success")
-    }else if(data['clouds']['all']< 91){
-        img = `<img src="/assets/img/4102326_cloud_sun_sunny_weather_icon.png"></img>`
-    }else if(day['clouds']['all']< 50 ){
-img = `<img src="/assets/img/2995005_sun_sunny_yellow_weather_beach_icon.png"></img>`
-    }
-    let cityValue = data['name'] + ' '+ '('+ currentTime +')'+ img;
-    let tempValue = 'Temp: '+data['main']['temp'] +"°"
-    let windValue = 'Wind: ' + data['wind']['speed'] + ' MPH'
-    let humidityValue = 'Humidity: ' +data['main']['humidity'] +'%'
-    let uvIndexValue = 'UV Index: ';
+.then(response => { console.log(response.main.temp)
+
+let cityValue = response.name + ' '+ '('+ currentTime +')'+`<img src=" http://openweathermap.org/img/wn/${response.weather[0].icon}@2x.png"></img>`
+    let tempValue = 'Temp: '+response.main.temp +"°"
+    let windValue = 'Wind: ' + response.wind.speed + ' MPH'
+    let humidityValue = 'Humidity: ' +response.main.humidity +'%'
+
 
     humidity.innerHTML = humidityValue;
     wind.innerHTML = windValue;
     temp.innerHTML = tempValue;
     city.innerHTML = cityValue;
-    
+
+
+    fetch('https://api.openweathermap.org/data/2.5/onecall?lat='+response.coord.lat+'&lon='+response.coord.lon+'&appid=8d8d90e6027a9ade8d4ce0c5e4e44d40&units=imperial')
+.then(response => response.json())
+.then(data => {
+    console.log(data)
+    let uvIndexValue = data.current.uvi;
+    uvIndex.innerHTML = uvIndexValue;
+    if(data.current.uvi <= 2 ){
+      uvIndex.classList.add('low')
+
+    }else if (data.current.uvi > 2 || data.current.uvi < 5  ){
+      uvIndex.classList.add('moderate')
+    }else if (data.current.uvi > 5 || data.current.uvi < 7  ){
+      uvIndex.classList.add('high')
+    }else if(data.current.uvi > 7 || data.current.uvi < 10  ){
+      uvIndex.classList.add('veryhigh')
+    }else if(data.current.uvi > 7 || data.current.uvi < 10  ){
+      uvIndex.classList.add('extreme')
+    }
+    fetch('https://api.openweathermap.org/data/2.5/forecast?q=milwaukee&appid=8d8d90e6027a9ade8d4ce0c5e4e44d40&units=imperial')
+    .then(response => response.json())
+    .then(response => {
+     
+
+    card1.innerHTML =  ` ${moment().add([1], 'days').format('MM-DD-YYYY')}<br>
+    <img src=" http://openweathermap.org/img/wn/${response.list[1].weather[0].icon}@2x.png">
+    Temp: ${response.list[1].main.temp}° <br>
+    Wind: ${response.list[1].wind.speed}MPH <br>
+    <br>  Humidity: ${response.list[1].main.humidity}%
+    `
+    card2.innerHTML =  ` ${moment().add([2], 'days').format('MM-DD-YYYY')}<br>
+    <img src=" http://openweathermap.org/img/wn/${response.list[2].weather[0].icon}@2x.png">
+    Temp: ${response.list[2].main.temp}° <br>
+    Wind: ${response.list[2].wind.speed}MPH <br>
+    <br>  Humidity: ${response.list[2].main.humidity}%
+    `
+    card3.innerHTML =  ` ${moment().add([3], 'days').format('MM-DD-YYYY')}<br>
+    <img src=" http://openweathermap.org/img/wn/${response.list[3].weather[0].icon}@2x.png">
+    Temp: ${response.list[3].main.temp}° <br>
+    Wind: ${response.list[3].wind.speed}MPH <br>
+    <br>   Humidity: ${response.list[3].main.humidity}%
+    `
+    card4.innerHTML =  ` ${moment().add([4], 'days').format('MM-DD-YYYY')}<br>
+    <img src=" http://openweathermap.org/img/wn/${response.list[4].weather[0].icon}@2x.png">
+    Temp: ${response.list[4].main.temp}° <br>
+    Wind: ${response.list[4].wind.speed}MPH <br>
+   <br> Humidity: ${response.list[4].main.humidity}%
+    `
+    card5.innerHTML =  ` ${moment().add([5], 'days').format('MM-DD-YYYY')}<br>
+    <img src=" http://openweathermap.org/img/wn/${response.list[5].weather[0].icon}@2x.png">
+    Temp: ${response.list[5].main.temp}° <br>
+    Wind: ${response.list[5].wind.speed}MPH <br>
+    <br>   Humidity: ${response.list[5].main.humidity}%
+    `
+ 
+})
+})
 })
 }
 
 
-// 
-$(".button").on("click", () =>{
-        localStorage.setItem('names',input.value)
+// Displays Weather for Whatever City Is Input
+button.addEventListener('click', () => {
+    fetch('https://api.openweathermap.org/data/2.5/weather?q='+input.value+'&appid=8d8d90e6027a9ade8d4ce0c5e4e44d40&units=imperial')
+    .then(response => response.json())
+    .then(response => {
     
-    lsDiv.className = 'searchHistory'
-    lsDiv.textContent = localStorage.getItem('names')
-    historyDiv.appendChild(lsDiv)
+        let cityValue = response.name + ' '+ '('+ currentTime +')';
+        let tempValue = 'Temp: '+response.main.temp +"°"
+        let windValue = 'Wind: ' + response.wind.speed + ' MPH'
+        let humidityValue = 'Humidity: ' +response.main.humidity +'%'
     
-console.log(cityArray)
-  console.log("Finished")
-})
+    
+        humidity.innerHTML = humidityValue;
+        wind.innerHTML = windValue;
+        temp.innerHTML = tempValue;
+        city.innerHTML = cityValue;
+        fetch('https://api.openweathermap.org/d5/onecall?lat='+response.coord.lat+'&lon='+response.coord.lon+'&appid=8d8d90e6027a9ade8d4ce0c5e4e44d40&units=imperial')
+    .then(response => response.json())
+    .then(data => {
+        console.log(data)
+        let uvIndexValue = data.current.uvi;
+        uvIndex.innerHTML = uvIndexValue;
+        if(data.current.uvi <= 2 ){
+          uvIndex.classList.add('low')
 
-const loadHistory = () =>{
-    lsDiv.className = 'searchHistory'
-    lsDiv.textContent = localStorage.getItem('names')
-    historyDiv.appendChild(lsDiv)
+        }else if (data.current.uvi > 2 || data.current.uvi < 5  ){
+          uvIndex.classList.add('moderate')
+        }else if (data.current.uvi > 5 || data.current.uvi < 7  ){
+          uvIndex.classList.add('high')
+        }else if(data.current.uvi > 7 || data.current.uvi < 10  ){
+          uvIndex.classList.add('veryhigh')
+        }else if(data.current.uvi > 7 || data.current.uvi < 10  ){
+          uvIndex.classList.add('extreme')
+        }
+        fetch('https://api.openweathermap.org/data/2.5/forecast?q='+ input.value+ '&appid=8d8d90e6027a9ade8d4ce0c5e4e44d40&units=imperial')
+        .then(response => response.json())
+        .then(response => {
+         
+    card1.innerHTML =  ` ${moment().add([1], 'days').format('MM-DD-YYYY')}<br>
+    <img src=" http://openweathermap.org/img/wn/${response.list[1].weather[0].icon}@2x.png">
+    Temp: ${response.list[1].main.temp}° <br>
+    Wind: ${response.list[1].wind.speed}MPH <br>
+    <br>  Humidity: ${response.list[1].main.humidity}%
+    `
+    card2.innerHTML =  ` ${moment().add([2], 'days').format('MM-DD-YYYY')}<br>
+    <img src=" http://openweathermap.org/img/wn/${response.list[2].weather[0].icon}@2x.png">
+    Temp: ${response.list[2].main.temp}° <br>
+    Wind: ${response.list[2].wind.speed}MPH <br>
+    <br> Humidity: ${response.list[2].main.humidity}%
+    `
+    card3.innerHTML =  ` ${moment().add([3], 'days').format('MM-DD-YYYY')}<br>
+    <img src=" http://openweathermap.org/img/wn/${response.list[3].weather[0].icon}@2x.png">
+    Temp: ${response.list[3].main.temp}° <br>
+    Wind: ${response.list[3].wind.speed}MPH <br>
+    <br> Humidity: ${response.list[3].main.humidity}%
+    `
+    card4.innerHTML =  ` ${moment().add([4], 'days').format('MM-DD-YYYY')}<br>
+    <img src=" http://openweathermap.org/img/wn/${response.list[4].weather[0].icon}@2x.png">
+    Temp: ${response.list[4].main.temp}° <br>
+    Wind: ${response.list[4].wind.speed}MPH <br>
+    <br>  Humidity: ${response.list[4].main.humidity}%
+    `
+    card5.innerHTML =  ` ${moment().add([5], 'days').format('MM-DD-YYYY')}<br>
+    <img src=" http://openweathermap.org/img/wn/${response.list[5].weather[0].icon}@2x.png">
+    Temp: ${response.list[5].main.temp}° <br>
+    Wind: ${response.list[5].wind.speed}MPH <br>
+    <br>  Humidity: ${response.list[5].main.humidity}%
+    `
+            
+            
+    })
+    })
+    })
     
-   
+    })
+    
+
+
+//Goes through the array and appends the localStorage Search History
+renderHistory = (cities ,event)=>{
+    console.log("hello")
+    for( i = 0; i < cities.length ; i++){
+    var historyItem = document.createElement('p')
+    historyItem.className = 'hello'
+    historyItem.textContent = cities[i]
+    historyDiv.appendChild(historyItem)
+
 }
 
-setInterval(loadHistory(),1000)
-apiOnload()
-fiveDayOnload()
+}
+// Sets and appends whatever city was input.
+ button.addEventListener('click', () =>{
+  var currentSearch = $('.searchC')
+  .val()
+  .trim()
+  var historyItem = document.createElement('p')
+
+    historyItem.className = 'hello'
+    historyItem.textContent= currentSearch;
+    $('.history').append(historyItem);
+    cities.push(currentSearch)
+    localStorage.setItem('cityHistory', JSON.stringify(cities))
+    historyItem.addEventListener('click', ()=>{
+
+    
+    fetch('https://api.openweathermap.org/data/2.5/weather?q='+historyItem.textContent+'&appid=8d8d90e6027a9ade8d4ce0c5e4e44d40&units=imperial')
+    .then(response => response.json())
+    .then(response => {
+    
+        let cityValue = response.name + ' '+ '('+ currentTime +')';
+        let tempValue = 'Temp: '+response.main.temp +"°"
+        let windValue = 'Wind: ' + response.wind.speed + ' MPH'
+        let humidityValue = 'Humidity: ' +response.main.humidity +'%'
+    
+    
+        humidity.innerHTML = humidityValue;
+        wind.innerHTML = windValue;
+        temp.innerHTML = tempValue;
+        city.innerHTML = cityValue;
+        fetch('https://api.openweathermap.org/d5/onecall?lat='+response.coord.lat+'&lon='+response.coord.lon+'&appid=8d8d90e6027a9ade8d4ce0c5e4e44d40&units=imperial')
+    .then(response => response.json())
+    .then(data => {
+        console.log(data)
+        let uvIndexValue = 'UV Index: ' + data.current.uvi;
+        uvIndex.innerHTML = uvIndexValue;
+        if(data.current.uvi <= 2 ){
+          uvIndex.classList.add('low')
+    
+        }else if (data.current.uvi > 2 || data.current.uvi < 5  ){
+          uvIndex.classList.add('moderate')
+        }else if (data.current.uvi > 5 || data.current.uvi < 7  ){
+          uvIndex.classList.add('high')
+        }else if(data.current.uvi > 7 || data.current.uvi < 10  ){
+          uvIndex.classList.add('veryhigh')
+        }else if(data.current.uvi > 7 || data.current.uvi < 10  ){
+          uvIndex.classList.add('extreme')
+        }
+        fetch('https://api.openweathermap.org/data/2.5/forecast?q='+ historyItem.textContent+ '&appid=8d8d90e6027a9ade8d4ce0c5e4e44d40&units=imperial')
+        .then(response => response.json())
+        .then(response => {
+         
+    card1.innerHTML =  ` ${moment().add([1], 'days').format('MM-DD-YYYY')}<br>
+    <img src=" http://openweathermap.org/img/wn/${response.list[1].weather[0].icon}@2x.png">
+    Temp: ${response.list[1].main.temp}° <br>
+    Wind: ${response.list[1].wind.speed}MPH <br>
+    Humidity: ${response.list[1].main.humidity}%
+    `
+    card2.innerHTML =  ` ${moment().add([2], 'days').format('MM-DD-YYYY')}<br>
+    <img src=" http://openweathermap.org/img/wn/${response.list[2].weather[0].icon}@2x.png">
+    Temp: ${response.list[2].main.temp}° <br>
+    Wind: ${response.list[2].wind.speed}MPH <br>
+    Humidity: ${response.list[2].main.humidity}%
+    `
+    card3.innerHTML =  ` ${moment().add([3], 'days').format('MM-DD-YYYY')}<br>
+    <img src=" http://openweathermap.org/img/wn/${response.list[3].weather[0].icon}@2x.png">
+    Temp: ${response.list[3].main.temp}° <br>
+    Wind: ${response.list[3].wind.speed}MPH <br>
+    Humidity: ${response.list[3].main.humidity}%
+    `
+    card4.innerHTML =  ` ${moment().add([4], 'days').format('MM-DD-YYYY')}<br>
+    <img src=" http://openweathermap.org/img/wn/${response.list[4].weather[0].icon}@2x.png">
+    Temp: ${response.list[4].main.temp}° <br>
+    Wind: ${response.list[4].wind.speed}MPH <br>
+    Humidity: ${response.list[4].main.humidity}%
+    `
+    card5.innerHTML =  ` ${moment().add([5], 'days').format('MM-DD-YYYY')}<br>
+    <img src=" http://openweathermap.org/img/wn/${response.list[5].weather[0].icon}@2x.png">
+    Temp: ${response.list[5].main.temp}° <br>
+    Wind: ${response.list[5].wind.speed}MPH <br>
+    Humidity: ${response.list[5].main.humidity}%
+    `
+            
+            
+    })
+    })
+    })
+
+  })
+    
+})
+
+
+
+
+
+
+
+
+apiOnload();
+renderHistory(cities);

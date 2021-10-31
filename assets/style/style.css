@@ -15,7 +15,7 @@
   padding-bottom: 10px;
 }
 .formContainer {
-  float: left;
+  max-width: 20vw;
 }
 .searchC {
   height: 35px;
@@ -33,37 +33,34 @@
 }
 .btnContainer {
   float: left;
-  top: 0;
-  left: 0;
 }
 hr {
   border: 2px solid gray;
 }
 .btnContainer .button {
   height: 35px;
-  float: left;
-  top: 0;
-  left: 0;
   width: 19vw;
   margin-left: 5px;
   margin-bottom: 15px;
   border: 0;
   background-color: rgb(29, 132, 216);
   border-radius: 5px;
+  float: left;
 }
 .btnContainer button hr {
   color: tomato;
 }
 .display {
+  position: fixed;
   margin-top: 5px;
-  float: right;
   border: 2px solid black;
   width: 78vw;
   height: 250px;
   margin-right: 2px;
+  display: inline-block;
 }
 .weatherCard {
-  margin-top: 50px;
+  margin-top: 100px;
   margin-bottom: 500px;
   height: 500px;
 }
@@ -80,6 +77,13 @@ hr {
   background-color: rgb(72, 72, 206);
   color: aliceblue;
   text-align: center;
+  box-shadow: 1px 2px 5px black;
+}
+.card:hover {
+  box-shadow: 1px 2px 8px black;
+  width: 13vw;
+  height: 310px;
+  transition: 0.05s;
 }
 img {
   height: 76px;
@@ -91,4 +95,44 @@ img {
   background-color: gray;
   height: 40px;
   border-radius: 5px;
+}
+.hello {
+  color: white;
+  background-color: gray;
+  text-align: center;
+  border-radius: 5px;
+}
+.uvstart {
+  width: 10%;
+  float: left;
+}
+.uvIndex {
+  background-color: aliceblue;
+  width: 5%;
+  float: left;
+}
+.low {
+  background-color: green;
+  width: 5%;
+  float: left;
+}
+.moderate {
+  background-color: yellow;
+  width: 5%;
+  float: left;
+}
+.high {
+  background-color: orange;
+  width: 5%;
+  float: left;
+}
+.veryhigh {
+  background-color: red;
+  width: 5%;
+  float: left;
+}
+.extreme {
+  background-color: violet;
+  width: 5%;
+  float: left;
 }

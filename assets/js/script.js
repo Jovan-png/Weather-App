@@ -49,14 +49,15 @@ let cityValue = response.name + ' '+ '('+ currentTime +')'+`<img src=" http://op
     uvIndex.innerHTML = uvIndexValue;
     if(data.current.uvi <= 2 ){
       uvIndex.classList.add('low')
-
-    }else if (data.current.uvi > 2 || data.current.uvi < 5  ){
+    }else if (data.current.uvi > 2 & data.current.uvi < 5  ){
       uvIndex.classList.add('moderate')
-    }else if (data.current.uvi > 5 || data.current.uvi < 7  ){
+      uvIndex.classList.remove('low')
+    }else if (data.current.uvi > 5 & data.current.uvi < 7  ){
       uvIndex.classList.add('high')
-    }else if(data.current.uvi > 7 || data.current.uvi < 10  ){
+      uvIndex.classList.remove('moderate')
+    }else if(data.current.uvi > 7 & data.current.uvi < 10  ){
       uvIndex.classList.add('veryhigh')
-    }else if(data.current.uvi > 7 || data.current.uvi < 10  ){
+    }else if(data.current.uvi > 10 & data.current.uvi < 12  ){
       uvIndex.classList.add('extreme')
     }
 
@@ -127,17 +128,17 @@ button.addEventListener('click', () => {
         uvIndex.innerHTML = uvIndexValue;
         if(data.current.uvi <= 2 ){
           uvIndex.classList.add('low')
-
-        }else if (data.current.uvi > 2 || data.current.uvi < 5  ){
+        }else if (data.current.uvi > 2 & data.current.uvi < 5  ){
           uvIndex.classList.add('moderate')
-        }else if (data.current.uvi > 5 || data.current.uvi < 7  ){
+          uvIndex.classList.remove('low')
+        }else if (data.current.uvi > 5 & data.current.uvi < 7  ){
           uvIndex.classList.add('high')
-        }else if(data.current.uvi > 7 || data.current.uvi < 10  ){
+          uvIndex.classList.remove('moderate')
+        }else if(data.current.uvi > 7 & data.current.uvi < 10  ){
           uvIndex.classList.add('veryhigh')
-        }else if(data.current.uvi > 7 || data.current.uvi < 10  ){
+        }else if(data.current.uvi > 10 & data.current.uvi < 12  ){
           uvIndex.classList.add('extreme')
         }
-  
     })
     })
     
@@ -206,9 +207,9 @@ renderHistory = (cities ,event)=>{
     $('.history').append(historyItem);
     cities.push(currentSearch)
     localStorage.setItem('cityHistory', JSON.stringify(cities))
-    historyItem.addEventListener('click', ()=>{
 
-    
+
+    historyItem.addEventListener('click', ()=>{
     fetch('https://api.openweathermap.org/data/2.5/weather?q='+historyItem.textContent+'&appid=8d8d90e6027a9ade8d4ce0c5e4e44d40&units=imperial')
     .then(response => response.json())
     .then(response => {
@@ -231,14 +232,15 @@ renderHistory = (cities ,event)=>{
         uvIndex.innerHTML = uvIndexValue;
         if(data.current.uvi <= 2 ){
           uvIndex.classList.add('low')
-    
-        }else if (data.current.uvi > 2 || data.current.uvi < 5  ){
+        }else if (data.current.uvi > 2 & data.current.uvi < 5  ){
           uvIndex.classList.add('moderate')
-        }else if (data.current.uvi > 5 || data.current.uvi < 7  ){
+          uvIndex.classList.remove('low')
+        }else if (data.current.uvi > 5 & data.current.uvi < 7  ){
           uvIndex.classList.add('high')
-        }else if(data.current.uvi > 7 || data.current.uvi < 10  ){
+          uvIndex.classList.remove('moderate')
+        }else if(data.current.uvi > 7 & data.current.uvi < 10  ){
           uvIndex.classList.add('veryhigh')
-        }else if(data.current.uvi > 7 || data.current.uvi < 10  ){
+        }else if(data.current.uvi > 10 & data.current.uvi < 12  ){
           uvIndex.classList.add('extreme')
         }
    historyItem.addEventListener('click', ()=>{
